@@ -1,0 +1,26 @@
+# 后端依赖
+fastapi==0.110.0
+uvicorn[standard]==0.29.0
+python-multipart==0.0.9
+httpx==0.27.0
+python-dotenv==1.0.1
+
+# 向量数据库
+chromadb==0.5.0
+
+# 嵌入模型
+sentence-transformers==2.7.0
+
+# 文档处理
+PyPDF2==3.0.1
+python-docx==1.1.0
+langchain-text-splitters==0.2.0
+
+# 限流
+slowapi==0.1.9
+
+# 前端依赖
+streamlit==1.34.0
+plotly==5.22.0
+pandas==2.2.2
+requests==2.32.3
