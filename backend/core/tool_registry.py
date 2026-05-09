@@ -25,7 +25,7 @@
 """
 from abc import ABC, abstractmethod
 from typing import Dict, Any, Optional, Callable, List
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
 
 @dataclass
@@ -45,7 +45,10 @@ class BaseTool(ABC):
     """
     name: str = "base_tool"
     description: str = "基础工具"
-    parameters: List[ToolParameter] = field(default_factory=list)
+
+    def __init__(self):
+        if not hasattr(self, 'parameters'):
+            self.parameters: List[ToolParameter] = []
 
     @abstractmethod
     async def execute(self, *args, **kwargs) -> str:
@@ -60,7 +63,7 @@ class BaseTool(ABC):
     def get_description(self) -> str:
         """获取工具描述（用于 prompt 构建）"""
         params_desc = ""
-        if hasattr(self, 'parameters') and self.parameters:
+        if hasattr(self, 'parameters') and self.parameters and isinstance(self.parameters, list):
             params_list = [f"{p.name}({p.type}): {p.description}" for p in self.parameters]
             params_desc = f" 参数: {', '.join(params_list)}"
         return f"{self.name}: {self.description}{params_desc}"
