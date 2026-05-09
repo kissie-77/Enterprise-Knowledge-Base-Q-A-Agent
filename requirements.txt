@@ -1,26 +1,32 @@
-# 后端依赖
+# ===== 后端核心依赖 =====
 fastapi==0.110.0
 uvicorn[standard]==0.29.0
 python-multipart==0.0.9
-httpx==0.27.0
 python-dotenv==1.0.1
 
-# 向量数据库
-chromadb==0.5.0
+# LLM 客户端（兼容 OpenAI 接口）
+openai>=1.12.0
 
-# 嵌入模型
+# ===== 向量数据库 & 嵌入 =====
+chromadb==0.5.0
 sentence-transformers==2.7.0
 
-# 文档处理
+# ===== 文档处理 =====
 PyPDF2==3.0.1
 python-docx==1.1.0
 langchain-text-splitters==0.2.0
 
-# 限流
+# ===== 限流 =====
 slowapi==0.1.9
 
-# 前端依赖
+# ===== 前端 =====
 streamlit==1.34.0
 plotly==5.22.0
 pandas==2.2.2
 requests==2.32.3
+
+# ===== 可选依赖（高级模块）=====
+# google-search-results  # SerpAPI 搜索工具（需要 API Key）
+# 以下为 Reranker 精排模型（无模型时自动降级为 LLM 打分）
+# sentence-transformers 已在上方安装，Cross-Encoder 共用
+# jieba==0.42.1          # 中文分词（可提升 BM25 效果）

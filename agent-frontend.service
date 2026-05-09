@@ -1,0 +1,25 @@
+[Unit]
+Description=Enterprise Knowledge Base Q&A Agent Frontend (Streamlit)
+After=network.target agent-backend.service
+Wants=agent-backend.service
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/agent_rag_project/frontend
+Environment="PATH=/opt/agent_rag_project/venv/bin:/usr/local/bin:/usr/bin"
+
+# 启动 Streamlit 前端
+ExecStart=/opt/agent_rag_project/venv/bin/streamlit run streamlit_app.py --server.port 8501 --server.address 127.0.0.1 --server.headless true --browser.gatherUsageStats false
+
+# 重启策略
+Restart=always
+RestartSec=10
+
+# 日志
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=agent-frontend
+
+[Install]
+WantedBy=multi-user.target
