@@ -25,6 +25,8 @@ plotly==5.22.0
 pandas==2.2.2
 requests==2.32.3
 
-# ===== 可选依赖 =====
+# ===== 可选依赖（高级模块）=====
 # google-search-results  # SerpAPI 搜索工具（需要 API Key）
-# httpx==0.27.0          # 如果需要旧版 LLM 客户端兼容
+# 以下为 Reranker 精排模型（无模型时自动降级为 LLM 打分）
+# sentence-transformers 已在上方安装，Cross-Encoder 共用
+# jieba==0.42.1          # 中文分词（可提升 BM25 效果）
