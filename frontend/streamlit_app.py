@@ -23,10 +23,12 @@ st.set_page_config(
 )
 
 # 后端 API 地址
+# 部署时通过 Nginx 反向代理，前端访问 /api/ 路径即可
+# 本地开发时可改为 http://localhost:8000
 API_BASE_URL = st.sidebar.text_input(
     "API 地址",
-    value="http://localhost:8000",
-    help="后端服务地址",
+    value="https://agent.wenhuichen.cn/api",
+    help="后端服务地址（部署环境使用 https://agent.wenhuichen.cn/api）",
 )
 
 

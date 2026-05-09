@@ -1,26 +1,36 @@
 [Unit]
-Description=Enterprise Knowledge Base Q&A Agent Backend
+Description=Enterprise Knowledge Base Q&A Agent Backend (v3.0)
 After=network.target
+Wants=network-online.target
 
 [Service]
 Type=simple
 User=root
-WorkingDirectory=/opt/agent_rag_project
-Environment="PATH=/opt/agent_rag_project/venv/bin"
-Environment="ZHIPU_API_KEY=your_zhipu_api_key_here"
+WorkingDirectory=/opt/agent_rag_project/backend
+EnvironmentFile=/opt/agent_rag_project/.env
+Environment="PATH=/opt/agent_rag_project/venv/bin:/usr/local/bin:/usr/bin"
 
-# 启动 FastAPI 服务
-ExecStart=/opt/agent_rag_project/venv/bin/uvicorn backend.main:app --host 0.0.0.0 --port 8000 --workers 2
+# 启动 FastAPI（新架构从 backend/ 目录启动）
+ExecStart=/opt/agent_rag_project/venv/bin/uvicorn main:app --host 127.0.0.1 --port 8000 --workers 2
 
 # 重启策略
 Restart=always
 RestartSec=10
+StartLimitBurst=5
+StartLimitIntervalSec=60
+
+# 日志
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=agent-backend
+
+# 资源限制
+LimitNOFILE=65536
+MemoryMax=2G
 
 # 安全配置
 NoNewPrivileges=true
 PrivateTmp=true
-ProtectSystem=strict
-ProtectHome=true
 
 [Install]
 WantedBy=multi-user.target
